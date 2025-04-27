@@ -1,0 +1,59 @@
+
+syntax = "proto3";  // This is the proto3 syntax
+
+option java_multiple_files=true; // Generate multiple Java files
+option java_package="io.michaeljgkopp.github";
+option java_outer_classname="EmployeeProto"; // Name of the generated Java class
+
+import "google/protobuf/timestamp.proto";
+package io.michaeljgkopp.github;
+
+message Employee{
+  int32 id=1;
+  string name=2;
+  double salary=3;
+  repeated Department departments=4;  // List of departments
+  map<string,string> addressMap=5; // Map of address
+  bool isActive=6;
+  bytes profilePicture=7; // Profile picture in bytes
+  google.protobuf.Timestamp joinDate=8;
+}
+
+// subclass
+message Department{
+  int32 id=1;
+  string name=2;
+}
+
+//// request "dto", unused for now
+//message EmployeeRequest{
+//  int32 id=1;
+//}
+
+// Employee List
+message EmployeeList{
+  repeated Employee employees=1; // List of employees
+}
+
+// This message is empty, used for requests with no parameters
+message Empty{
+}
+
+// service contract, "interface"
+service EmployeeService{
+
+  // get all employees
+  rpc getAllEmployees(Empty) returns (EmployeeList); // stream for large data
+
+  // get employee by id
+  rpc getEmployee(Employee) returns (Employee); // request Employee for simplification
+
+  // add an employee
+  rpc addEmployee(Employee) returns (Employee);
+
+  // update an employee
+  rpc updateEmployee(Employee) returns (Employee);
+
+  // delete an employee
+  rpc deleteEmployee(Employee) returns (Empty);
+}
