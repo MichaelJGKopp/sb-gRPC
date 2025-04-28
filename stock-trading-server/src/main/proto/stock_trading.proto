@@ -20,4 +20,5 @@ message StockRequest {
 message StockResponse {
   string stock_symbol = 1;
   double price = 2;
+  string timestamp=3;
 }
