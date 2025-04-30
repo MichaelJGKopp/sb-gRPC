@@ -9,6 +9,7 @@ import org.springframework.grpc.server.service.GrpcService;
 
 @GrpcService
 public class StockTradingServiceImpl extends
+    // unary, one request one response
     io.michaeljgkopp.github.grpc.StockTradingServiceGrpc.StockTradingServiceImplBase {
 
   private final StockRepository stockRepository;
